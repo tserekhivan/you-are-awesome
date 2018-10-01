@@ -1,18 +1,73 @@
-// DO WHATEVER YOU WANT HERE
+const createEnumerableProperty = (propertyName) => {
+     return this;
+};
 
-const createEnumerableProperty = () => {};
-const createNotEnumerableProperty = () => {};
-const createProtoMagicObject = () => {};
-const incrementor = () => {};
-const asyncIncrementor = () => {};
-const createIncrementer = () => {};
+const createNotEnumerableProperty = (propertyName) => {
+    const property = propertyName;
+    Object.defineProperty(Object.prototype, property, {
+        enumerable: false,
+        value: 'value'
+    });
+    return property;
+};
 
-// return same argument not earlier than in one second, and not later, than in two
-const returnBackInSecond = () => {};
-const getDeepPropertiesCount = () => {};
-const createSerializedObject = () => {};
-const toBuffer = () => {};
-const sortByProto = () => {};
+const createProtoMagicObject = () => {
+    let magicObj = Function();
+    magicObj.prototype = magicObj.__proto__;
+    return magicObj;
+};
+
+const incrementor = () => {
+    count++
+    return incrementor;
+};
+let count = 0;
+incrementor.toString = () => { return count;}
+
+
+const asyncIncrementor = async () => {
+    return await asyncCount++;
+};
+let asyncCount = 1;
+
+const createIncrementer = () => {
+    function* incrementor() {
+        let count = 1;
+        while(count) {
+            yield count;
+            count++;
+        }
+    }
+    return incrementor();
+};
+
+const returnBackInSecond = (param) => {
+    return new Promise((resolve) => {
+        setTimeout(() => resolve(param), 1000);
+    });
+};
+
+const getDeepPropertiesCount = (obj) => {
+    let count = 0;
+    const countObj = (obj) => {
+        for (let property in obj) {
+             if (typeof obj[property] === 'object') {
+                 countObj(obj[property]);
+             }
+             count++;
+        }
+        return count;
+    }
+    return countObj(obj);
+};
+
+const createSerializedObject = () => {
+    let obj = null;
+    return obj;
+};
+
+const sortByProto = (array) => {
+};
 
 exports.createEnumerableProperty = createEnumerableProperty;
 exports.createNotEnumerableProperty = createNotEnumerableProperty;
