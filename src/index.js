@@ -67,6 +67,19 @@ const createSerializedObject = () => {
 };
 
 const sortByProto = (array) => {
+    return array.sort((a, b) => {
+        let countProtoA = 0;
+        let countProtoB = 0;
+        while (a.__proto__ !== null) {
+            countProtoA++;
+            a = a.__proto__;
+        }
+        while (b.__proto__ !== null) {
+            countProtoB++;
+            b = b.__proto__;
+        }
+        return countProtoA - countProtoB;
+    });
 };
 
 exports.createEnumerableProperty = createEnumerableProperty;
